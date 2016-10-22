@@ -22,4 +22,6 @@ Create an ASP.NET MVC Web Application (w/ Authentication and a Unit Test project
 
 Your Home page should have a drop-down and text input form element centered on the page:
 
-
+<form>
+<input type="text"></input>
+</form>
