@@ -12,11 +12,16 @@
                 <option value="head">Head</option>
             </select>
             <label for="urlBox">URL</label>
-            <textarea id="urlBox" ng-model="placeholder"></textarea>
+            <textarea id="urlBox" ng-model="userURL" placeholder="http://www.reddit.com/"></textarea>
             <button type="button" class="btn" id="fetch" ng-click="fetchURL()">Fetch</button>
             <button class="btn" id="store">Store</button>
             </div>
         </form>
+        <div id="responseBox">
+            <p ng-model="userURL">{{userURL}}</p>
+            <p ng-model="status">{{status}}</p>
+            <p ng-model="method">{{method}}</p>
+        </div>
     </div>
 </div>
     </div>
