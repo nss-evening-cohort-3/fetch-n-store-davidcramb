@@ -1,0 +1,22 @@
+﻿@{
+
+}
+<div class="center-block" ng-controller="FetchCtrl">
+<div class="row">
+    <div class="col-md-10 col-md-offset-2">
+        <form class="form-inline" action="false">
+            <div class="form-group">
+                <label for="select">Method</label>
+            <select id="select"> 
+                <option value="get">Get</option>
+                <option value="head">Head</option>
+            </select>
+            <label for="urlBox">URL</label>
+            <textarea id="urlBox" ng-model="placeholder"></textarea>
+            <button type="button" class="btn" id="fetch" ng-click="fetchURL()">Fetch</button>
+            <button class="btn" id="store">Store</button>
+            </div>
+        </form>
+    </div>
+</div>
+    </div>

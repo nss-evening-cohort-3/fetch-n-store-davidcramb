@@ -28,7 +28,9 @@ namespace FetchNStore
                       "~/Content/site.css"));
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 "~/Scripts/angular.js",
-                "~/Scripts/app.js"));
+                "~/Scripts/app.js",
+                "~/Scripts/Controllers/FetchCtrl.js"));
+
         }
     }
 }
