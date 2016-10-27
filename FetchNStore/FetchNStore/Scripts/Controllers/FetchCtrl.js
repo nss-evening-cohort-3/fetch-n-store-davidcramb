@@ -7,6 +7,7 @@ app.controller('FetchCtrl', function ($scope, $http) {
     $scope.method = "";
     $scope.responseTime = "";
     $scope.placeholder = "http://www.reddit.com";
+    
     $scope.selectables =
         [{
             value: 'get',
@@ -18,10 +19,9 @@ app.controller('FetchCtrl', function ($scope, $http) {
     $scope.selected = $scope.selectables[0];
 
     $scope.fetchURL = (selectedMethod) => {
-        console.log("test");
-        console.log($scope.userURL);
-        console.log($scope.selected.value);
-        console.log(selectedMethod == 'get');
+        var pingFirst = new Date();
+        var pingLast = "";
+        console.log(pingFirst);
         if (selectedMethod == 'get')
         {
             $http.get($scope.userURL)
@@ -29,6 +29,7 @@ app.controller('FetchCtrl', function ($scope, $http) {
                 console.log(response)
                 $scope.status = response.status;
                 $scope.method = response.config.method;
+                pingLast = new Date();
                 b = response;
             });
         } else if (selectedMethod == 'head')
@@ -38,13 +39,28 @@ app.controller('FetchCtrl', function ($scope, $http) {
                 console.log(response)
                 $scope.status = response.status;
                 $scope.method = response.config.method;
+                pingLast = new Date.now();
                 b = response;
             });
         }
+        $scope.responseTime = pingFirst - pingLast;
     };
 
     $scope.storeData = () => {
-        //
+        var data = $.param({
+            Status_Code: $scope.status,
+            URL: $scope.userURL,
+            Response_Time: $scope.responseTime,
+            Method: $scope.method,
+            Time : null
+        })
+
+        
+        $http.post('http://localhost/api/Response/', data)
+        .then(function (response) {
+            console.log(response);
+        })
+
     };
 
 

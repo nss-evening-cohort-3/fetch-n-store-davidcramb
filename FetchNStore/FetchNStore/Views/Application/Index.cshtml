@@ -14,13 +14,14 @@
             <label for="urlBox">URL</label>
             <textarea id="urlBox" ng-model="userURL" placeholder="http://www.reddit.com/"></textarea>
             <button type="button" class="btn" id="fetch" ng-click="fetchURL(selected.value)">Fetch</button>
-            <button class="btn" id="store" ng-click="storeData()">Store</button>
+            <button type="button" class="btn" id="store" ng-click="storeData()">Store</button>
             </div>
         </form>
         <div id="responseBox">
             <p ng-model="userURL">{{userURL}}</p>
             <p ng-model="status">{{status}}</p>
             <p ng-model="method">{{method}}</p>
+            <p ng-model="responseTime">{{responseTime}}</p>
         </div>
     </div>
 </div>
