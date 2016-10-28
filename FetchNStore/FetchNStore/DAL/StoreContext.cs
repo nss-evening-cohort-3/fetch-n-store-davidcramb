@@ -8,7 +8,7 @@ using FetchNStore.Models;
 
 namespace FetchNStore.DAL
 {
-    public class StoreContext : DbContext
+    public class FetchNStoreContext : DbContext
     {
         public virtual DbSet<URL> URL {get;set;}
     }

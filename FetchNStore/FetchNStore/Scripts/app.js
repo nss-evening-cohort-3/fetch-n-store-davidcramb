@@ -9,3 +9,4 @@
         
 //    })
 //})
+//app.controller("MyCtrl", ['$scope', '$http', function ($scope, $http) { }]) //alternate way

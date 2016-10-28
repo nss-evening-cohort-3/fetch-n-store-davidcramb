@@ -14,7 +14,6 @@ namespace FetchNStore.Models
         public int Status_Code { get; set; }
         public int Response_Time { get; set; }
         public string Method { get; set; }
-        public DateTime Request_Time { get; set; }
     }
 
 }
