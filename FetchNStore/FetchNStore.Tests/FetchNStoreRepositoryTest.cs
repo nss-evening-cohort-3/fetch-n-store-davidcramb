@@ -36,13 +36,15 @@ namespace FetchNStore.Tests
             mock_context = new Mock<FetchNStoreContext>();
             mock_url_table = new Mock<DbSet<URL>>();
             url_list = new List<URL>();
-            repo = new FetchNStoreRepository();
+            repo = new FetchNStoreRepository(mock_context.Object);
+            ConnectMockToDataStore();
         }
         [TestCleanup]
         public void TearDown()
         {
             repo = null;
         }
+
         [TestMethod]
         public void EnsureInstanceOfRepo()
         {

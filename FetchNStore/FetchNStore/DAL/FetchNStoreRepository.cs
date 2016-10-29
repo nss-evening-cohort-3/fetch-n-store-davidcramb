@@ -9,7 +9,6 @@ namespace FetchNStore.DAL
     public class FetchNStoreRepository
     {
         public FetchNStoreContext Context { get; set; }
-        public List<URL> URL_List { get; set; }
 
         public FetchNStoreRepository()
         {
@@ -23,9 +22,7 @@ namespace FetchNStore.DAL
 
         public List<URL> GetURLs()
         {
-            List<URL> url_list = new List<URL>();
-            url_list = Context.URL.ToList();
-            return url_list;
+            return Context.URL.ToList();
         }
 
         public URL AddURLToDataBase(URL new_url)

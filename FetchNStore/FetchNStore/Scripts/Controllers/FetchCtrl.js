@@ -6,7 +6,7 @@ app.controller('FetchCtrl', function ($scope, $http) {
     $scope.status = "";
     $scope.method = "";
     $scope.responseTime = "";
-    $scope.placeholder = "http://www.reddit.com";
+    $scope.placeholder = "http://httpstat.us/";
     
     $scope.selectables =
         [{
@@ -25,42 +25,46 @@ app.controller('FetchCtrl', function ($scope, $http) {
         if (selectedMethod == 'get')
         {
             $http.get($scope.userURL)
-            .then(function (response) {
-                console.log(response)
-                $scope.status = response.status;
-                $scope.method = response.config.method;
+            .then(function (data, status, headers, config) {
+                console.log(data)
+                $scope.status = data.status;
+                $scope.method = data.config.method;
                 pingLast = new Date();
-                b = response;
+                b = data;
+            }, function errorCallback(response)
+            {
+                console.log(response);
             });
         } else if (selectedMethod == 'head')
         {
             $http.head($scope.userURL)
-            .then(function (response) {
-                console.log(response)
-                $scope.status = response.status;
-                $scope.method = response.config.method;
+            .then(function (data) {
+                console.log(data);
+                $scope.status = data.status;
+                $scope.method = data.config.method;
                 pingLast = new Date.now();
-                b = response;
+                b = data;
             });
         }
         $scope.responseTime = pingFirst - pingLast;
     };
 
     $scope.storeData = () => {
+        console.log('store');
         var data = $.param({
-            Status_Code: $scope.status,
             URL: $scope.userURL,
-            Response_Time: $scope.responseTime,
+            Status_Code: $scope.status,
             Method: $scope.method,
+            Response_Time: $scope.responseTime,
             Time : null
         })
-
-        
-        $http.post('http://localhost/api/Response/', data)
+        $http.post('/api/Response', data)
+        console.log(data)
         .then(function (response) {
             console.log(response);
-        })
-
+        }, function errorCallback(response) {
+            console.log(response);
+        });
     };
 
 
