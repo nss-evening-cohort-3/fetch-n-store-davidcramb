@@ -13,9 +13,12 @@ namespace FetchNStore.Controllers
     {
         // GET: api/Response
 
-        public IEnumerable<string> Get()
+        public IEnumerable<URL> Get()
         {
-            return new string[] { "value1", "value2" };
+            FetchNStoreRepository repo = new FetchNStoreRepository();
+            List<URL> response = repo.GetURLs();
+            URL[] response_string = response.ToArray();
+            return response_string;
         }
 
         // GET: api/Response/5

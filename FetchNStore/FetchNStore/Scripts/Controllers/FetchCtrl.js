@@ -1,9 +1,11 @@
-﻿var b = "";
-app.controller('FetchCtrl', function ($scope, $http) {
+﻿a = "";
+b = "";
+c = "";
+app.controller('FetchCtrl', function ($scope, $http, FetchFactory) {
     $scope.userURL = "";
     $scope.status = "";
     $scope.method = "";
-    $scope.responseTime = "";
+    $scope.responseTime = ""
     $scope.placeholder = "http://httpstat.us/";
     
     $scope.selectables =
@@ -16,19 +18,20 @@ app.controller('FetchCtrl', function ($scope, $http) {
         }];
     $scope.selected = $scope.selectables[0];
 
+    $scope.responseData = [];
+
     $scope.fetchURL = (selectedMethod) => {
-        var pingFirst = new Date();
-        var pingLast = "";
-        console.log(pingFirst);
+        var pingFirst, pingLast;
+        pingFirst = Date.now();
         if (selectedMethod == 'get')
         {
             $http.get($scope.userURL)
             .then(function (data, status, headers, config) {
-                console.log(data)
+                console.log("response data", data)
                 $scope.status = data.status;
                 $scope.method = data.config.method;
-                pingLast = new Date();
-                b = data;
+                pingLast = Date.now();
+                $scope.responseTime = pingLast - pingFirst;
             }, function errorCallback(response)
             {
                 console.log(response);
@@ -38,13 +41,12 @@ app.controller('FetchCtrl', function ($scope, $http) {
             $http.head($scope.userURL)
             .then(function (data) {
                 console.log(data);
+                pingLast = Date.now();
                 $scope.status = data.status;
                 $scope.method = data.config.method;
-                pingLast = new Date.now();
-                b = data;
+                $scope.responseTime = pingLast - pingFirst;
             });
         }
-        $scope.responseTime = pingFirst - pingLast;
     };
 
     $scope.storeData = () => {
@@ -64,5 +66,38 @@ app.controller('FetchCtrl', function ($scope, $http) {
         });
     };
 
-
+    $scope.displayData = () => {
+        $scope.responseData = [];
+        console.log('display!')
+        FetchFactory.getData()
+        .then(function (dataList) {
+            Object.keys(dataList).forEach(function (key) {
+                $scope.responseData.push(dataList[key]);
+            });
+            console.log($scope.responseData);
+        });
+    };
+    $scope.displayData();
 });
+
+
+
+app.factory('FetchFactory', function ($q, $http) {
+
+    var getData = () => {
+        var data = [];
+        return $q(function (resolve, reject) {
+            $http.get('http://localhost:50386/api/Response')
+            .success(function (responseObject) {
+                data.push(responseObject);
+                resolve(data[0]);
+            })
+            .error(function (error) {
+                reject(error);
+            });
+        });
+    };
+    return {
+        getData: getData
+    }
+})

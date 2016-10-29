@@ -14,7 +14,7 @@
             <label for="urlBox">URL</label>
             <textarea id="urlBox" ng-model="userURL" placeholder="http://httpstat.us/">http://httpstat.us</textarea>
             <button type="button" class="btn" id="fetch" ng-click="fetchURL(selected.value)">Fetch</button>
-            <button type="button" class="btn" id="store" ng-click="storeData()">Store</button>
+            <button type="button" class="btn" id="store" ng-click="storeData(); displayData()">Store</button>
             </div>
         </form>
         <div id="responseBox">
@@ -22,6 +22,10 @@
             <p ng-model="status">{{status}}</p>
             <p ng-model="method">{{method}}</p>
             <p ng-model="responseTime">{{responseTime}}</p>
+        </div>
+        <div id="dataBox" ng-repeat="item in responseData">
+            <p>ID: {{item.urlId}} URL: {{item.urL_Address}} Method: {{item.Method}} Status: {{item.status_Code}} Response Time(ms) {{item.response_Time}}</p>
+            
         </div>
     </div>
 </div>
