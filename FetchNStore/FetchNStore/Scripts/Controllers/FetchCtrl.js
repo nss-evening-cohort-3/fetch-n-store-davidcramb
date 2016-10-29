@@ -1,6 +1,4 @@
-﻿var hi = "hi";
-var b = "";
-console.log(hi);
+﻿var b = "";
 app.controller('FetchCtrl', function ($scope, $http) {
     $scope.userURL = "";
     $scope.status = "";
@@ -51,15 +49,14 @@ app.controller('FetchCtrl', function ($scope, $http) {
 
     $scope.storeData = () => {
         console.log('store');
-        var data = $.param({
-            URL: $scope.userURL,
+        var data = {
+            URL_Address: $scope.userURL,
             Status_Code: $scope.status,
             Method: $scope.method,
             Response_Time: $scope.responseTime,
-            Time : null
-        })
-        $http.post('/api/Response', data)
-        console.log(data)
+        }   
+        console.log(data);
+            $http.post('/api/Response', data)
         .then(function (response) {
             console.log(response);
         }, function errorCallback(response) {

@@ -25,13 +25,11 @@ namespace FetchNStore.Controllers
         }
 
         // POST: api/Response
-        public void Post([FromBody]dynamic value)
+        public void Post([FromBody]URL value)
         {
 
-            //Console.WriteLine(value);
-            //FetchNStoreRepository repo = new FetchNStoreRepository();
-            //value = new URL();
-            //repo.AddURLToDataBase(value);
+            FetchNStoreRepository repo = new FetchNStoreRepository();
+            repo.AddURLToDataBase(value);
         }
 
         // PUT: api/Response/5
